@@ -120,6 +120,7 @@ def login_screen():
 
             # Create two tabs: Login and Register
             tab_login, tab_register = st.tabs(["Login", "Register"])
+            # tab_login = st.tabs("Login")
 
             with tab_login:
                 with st.form("login_form"):
@@ -137,34 +138,34 @@ def login_screen():
                         else:
                             st.error("Incorrect username or password")
 
-            with tab_register:
-                with st.form("register_form"):
-                    # name = st.text_input("Full Name")
-                    email = st.text_input("Email")
-                    password = st.text_input("Password", type="password")
-
-                    if st.form_submit_button("Proceed to Payment"):
-                        if user_exists(email):
-                            st.error("This email is already registered.")
-                        elif not email or not password:
-                            st.error("Please fill all fields.")
-                        else:
-                            try:
-                                checkout_session = stripe.checkout.Session.create(
-                                    success_url=f"{DOMAIN_URL}/success?session_id={{CHECKOUT_SESSION_ID}}",
-                                    cancel_url=f"{DOMAIN_URL}",
-                                    payment_method_types=["card"],
-                                    mode="subscription",
-                                    line_items=[{"price": STRIPE_PRICE_ID, "quantity": 1}],
-                                    customer_email=email,
-                                    metadata={
-                                        "email": email,
-                                        "password": password
-                                    }
-                                )
-                                st.markdown(f"[Click here to pay and complete registration]({checkout_session.url})")
-                            except Exception as e:
-                                st.error(f"Error creating payment session: {e}")
+            # with tab_register:
+            #     with st.form("register_form"):
+            #         # name = st.text_input("Full Name")
+            #         email = st.text_input("Email")
+            #         password = st.text_input("Password", type="password")
+            #
+            #         if st.form_submit_button("Proceed to Payment"):
+            #             if user_exists(email):
+            #                 st.error("This email is already registered.")
+            #             elif not email or not password:
+            #                 st.error("Please fill all fields.")
+            #             else:
+            #                 try:
+            #                     checkout_session = stripe.checkout.Session.create(
+            #                         success_url=f"{DOMAIN_URL}/success?session_id={{CHECKOUT_SESSION_ID}}",
+            #                         cancel_url=f"{DOMAIN_URL}",
+            #                         payment_method_types=["card"],
+            #                         mode="subscription",
+            #                         line_items=[{"price": STRIPE_PRICE_ID, "quantity": 1}],
+            #                         customer_email=email,
+            #                         metadata={
+            #                             "email": email,
+            #                             "password": password
+            #                         }
+            #                     )
+            #                     st.markdown(f"[Click here to pay and complete registration]({checkout_session.url})")
+            #                 except Exception as e:
+            #                     st.error(f"Error creating payment session: {e}")
 
         with col1:
             ai_logo = get_base64_image("photo/ai_logo_4.png")
