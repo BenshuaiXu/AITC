@@ -32,7 +32,8 @@ st.sidebar.image(sidebar_logo, use_container_width=True)
 def chat_gpt(prompt: str) -> str:
     try:
         resp = client.chat.completions.create(
-            model="gpt-5-nano",
+            # model="gpt-5-nano",
+            model="gpt-5-mini",
             messages=[{"role": "user", "content": prompt}],
         )
         return resp.choices[0].message.content.strip()
