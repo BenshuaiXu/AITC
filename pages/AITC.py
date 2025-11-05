@@ -11,7 +11,7 @@ import re
 client = OpenAI(api_key=st.secrets["ai_key"])
 OpenAI.api_key = st.secrets["ai_key"]
 
-client_deepseek = OpenAI(api_key=st.secrets["deepseek_key"], base_url="https://api.deepseek.com")
+# client_deepseek = OpenAI(api_key=st.secrets["deepseek_key"], base_url="https://api.deepseek.com")
 
 if "authenticated" not in st.session_state or not st.session_state["authenticated"]:
     st.warning("You must log in first.")
@@ -33,20 +33,20 @@ st.sidebar.image(sidebar_logo, use_container_width=True)
 # OpenAI wrapper
 def chat_gpt(prompt: str) -> str:
     try:
-        # resp = client.chat.completions.create(
-        #     # model="gpt-5-nano",
-        #     # model="gpt-5-mini",
+        resp = client.chat.completions.create(
+            # model="gpt-5-nano",
+            model="gpt-5-mini",
+            # model="deepseek-chat",
+            messages=[{"role": "user", "content": prompt}],
+        )
+        return resp.choices[0].message.content.strip()
+
+        # response = client_deepseek.chat.completions.create(
         #     model="deepseek-chat",
         #     messages=[{"role": "user", "content": prompt}],
+        #     stream=False
         # )
-        # return resp.choices[0].message.content.strip()
-
-        response = client_deepseek.chat.completions.create(
-            model="deepseek-chat",
-            messages=[{"role": "user", "content": prompt}],
-            stream=False
-        )
-        return response.choices[0].message.content.strip()
+        # return response.choices[0].message.content.strip()
     except Exception as e:
         return f"Error: {e}"
 
