@@ -36,6 +36,7 @@ def chat_gpt(prompt: str) -> str:
         resp = client.chat.completions.create(
             # model="gpt-5-nano",
             model="gpt-5-mini",
+            # model="gpt-5.2-chat-latest",
             # model="deepseek-chat",
             messages=[{"role": "user", "content": prompt}],
         )
