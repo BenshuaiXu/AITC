@@ -30,24 +30,38 @@ sidebar_logo = Image.open("photo/ai_logo_4.png")
 st.sidebar.image(sidebar_logo, use_container_width=True)
 
 
-# OpenAI wrapper
+# # OpenAI wrapper
+# def chat_gpt(prompt: str) -> str:
+#     try:
+#         resp = client.chat.completions.create(
+#             # model="gpt-5-nano",
+#             model="gpt-5-mini",
+#             # model="gpt-5.2-chat-latest",
+#             # model="deepseek-chat",
+#             messages=[{"role": "user", "content": prompt}],
+#         )
+#         return resp.choices[0].message.content.strip()
+#
+#         # response = client_deepseek.chat.completions.create(
+#         #     model="deepseek-chat",
+#         #     messages=[{"role": "user", "content": prompt}],
+#         #     stream=False
+#         # )
+#         # return response.choices[0].message.content.strip()
+#     except Exception as e:
+#         return f"Error: {e}"
+
+# OpenAI wrapper (GPT-5.2 compatible)
 def chat_gpt(prompt: str) -> str:
     try:
-        resp = client.chat.completions.create(
-            # model="gpt-5-nano",
-            model="gpt-5-mini",
-            # model="gpt-5.2-chat-latest",
-            # model="deepseek-chat",
-            messages=[{"role": "user", "content": prompt}],
+        resp = client.responses.create(
+            model="gpt-5.2",
+            input=prompt,
         )
-        return resp.choices[0].message.content.strip()
 
-        # response = client_deepseek.chat.completions.create(
-        #     model="deepseek-chat",
-        #     messages=[{"role": "user", "content": prompt}],
-        #     stream=False
-        # )
-        # return response.choices[0].message.content.strip()
+        # GPT-5.x returns text via output_text
+        return resp.output_text.strip()
+
     except Exception as e:
         return f"Error: {e}"
 
@@ -66,16 +80,6 @@ st.markdown(
 """,
     unsafe_allow_html=True,
 )
-
-# =============================
-# Mode Toggle (Top of Page)
-# =============================
-# mode = st.radio(
-#     "Choose Mode:",
-#     ["Word Learning Mode", "Writing Improving Mode"],
-#     horizontal=True,
-#     key="mode_toggle"
-# )
 
 mode = "Word Learning Mode"
 mode_toggle = st.toggle("Switch to Writing Improving Mode", value=False)
