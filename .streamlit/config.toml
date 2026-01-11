@@ -1,0 +1,14 @@
+[theme]
+base = "dark"
+primaryColor = "#ffa500ff"           # Pornhub's signature orange ffa500  ffa600ff
+backgroundColor = "#1A1A1A"        # 292929 Black background
+secondaryBackgroundColor = "##62626" # 2929291b1b1b Dark gray for contrast in sidebars or cards
+textColor = "#BBBBBB"             # less bright than CCCCCC" 0E0E0 A5A5A5 White text for readability
+
+#Very dark brown / near-black (background): #080402
+#Just a touch lighter: #0E0805
+#Noticeably but still very dark: #1A120C
+#Dark warm brown (shadow areas): #38291C
+#Mid gray (metallic reflections): #7C7978
+#Light gray (metal highlights): #B5B3B5
+#Off-white (logo text): #F2F0F0
